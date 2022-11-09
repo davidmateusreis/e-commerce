@@ -1,5 +1,7 @@
 package com.david.backend.controller;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +15,11 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @PostConstruct
+    public void initRolesAndUsers() {
+        userService.initRolesAndUser();
+    }
 
     @PostMapping({ "/registerNewUser" })
     public User registerNewUser(@RequestBody User user) {
