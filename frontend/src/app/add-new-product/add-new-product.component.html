@@ -40,7 +40,16 @@
             </div>
             <div class="col-6">
                 <div>
-                    <input type="file" multiple value="select" #selectFile (change)="onFileSelected($event)">
+                    <div class="dropzone" appDrag (files)="fileDropped($event)">
+                        <div class="text-wrapper">
+                            <div class="centered">
+                                Drag and drop yout file or <a (click)="selectFile.click()"
+                                    class="browse-button">browse</a> a file
+                            </div>
+                        </div>
+                    </div>
+                    <input type="file" style="display: none;" multiple value="select" #selectFile
+                        (change)="onFileSelected($event)">
                 </div>
                 <div class="mt-5">
                     <div class="row">
@@ -51,7 +60,7 @@
                                     <img [src]="file.url" width="100px" height="100px">
                                 </div>
                             </mat-grid-tile>
-                        </mat-grid-list>                          
+                        </mat-grid-list>
                     </div>
                 </div>
             </div>
