@@ -11,7 +11,7 @@ import { ProductService } from '../_services/product.service';
 export class ShowProductDetailsComponent implements OnInit {
 
   productDetails: Product[] = [];
-  displayedColumns: string[] = ['productId', 'productName', 'productDescription', 'productDiscountedPrice', 'productActualPrice'];
+  displayedColumns: string[] = ['productId', 'productName', 'productDescription', 'productDiscountedPrice', 'productActualPrice', 'edit', 'delete'];
 
   constructor(private productService: ProductService) { }
 
@@ -24,6 +24,18 @@ export class ShowProductDetailsComponent implements OnInit {
       (response: Product[]) => {
         console.log(response);
         this.productDetails = response;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    );
+  }
+
+  deleteProduct(productId: any) {
+    this.productService.deleteProduct(productId).subscribe(
+      (response) => {
+        console.log(response);
+        this.getAllProducts();
       },
       (error: HttpErrorResponse) => {
         console.log(error);
