@@ -42,7 +42,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/authenticate", "/registerNewUser", "/getAllProducts",
-                        "/deleteProductDetails/{productId}")
+                        "/deleteProductDetails/{productId}", "/getProductDetailsById/{productId}")
                 .permitAll()
                 .antMatchers(HttpHeaders.ALLOW).permitAll()
                 .anyRequest().authenticated()

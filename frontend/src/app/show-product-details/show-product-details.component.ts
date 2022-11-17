@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { ShowProductImagesDialogComponent } from '../show-product-images-dialog/show-product-images-dialog.component';
 import { Product } from '../_model/product.model';
@@ -20,7 +21,8 @@ export class ShowProductDetailsComponent implements OnInit {
   constructor(
     private productService: ProductService,
     public imagesDialog: MatDialog,
-    private imageProcessingService: ImageProcessingService
+    private imageProcessingService: ImageProcessingService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +66,10 @@ export class ShowProductDetailsComponent implements OnInit {
       height: '500px',
       width: '800px'
     });
+  }
+
+  editProductDetails(productId: any) {
+    this.router.navigate(['/addNewProduct', { productId: productId }]);
   }
 
 }
