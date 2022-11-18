@@ -33,7 +33,7 @@ public class ProductController {
 
         try {
             Set<ImageModel> images = uploadImage(file);
-            product.setProductImagens(images);
+            product.setProductImages(images);
             return productService.addNewProduct(product);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -55,7 +55,6 @@ public class ProductController {
         return imageModels;
     }
 
-    @PreAuthorize("hasRole('Admin')")
     @GetMapping({ "/getAllProducts" })
     public List<Product> getAllProducts() {
         return productService.getAllProducts();

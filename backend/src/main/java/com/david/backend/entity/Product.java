@@ -29,7 +29,7 @@ public class Product {
     }, inverseJoinColumns = {
             @JoinColumn(name = "image_id")
     })
-    private Set<ImageModel> productImagens;
+    private Set<ImageModel> productImages;
 
     public Integer getProductId() {
         return productId;
@@ -71,11 +71,11 @@ public class Product {
         this.productActualPrice = productActualPrice;
     }
 
-    public Set<ImageModel> getProductImagens() {
-        return productImagens;
+    public Set<ImageModel> getProductImages() {
+        return productImages;
     }
 
-    public void setProductImagens(Set<ImageModel> productImagens) {
-        this.productImagens = productImagens;
+    public void setProductImages(Set<ImageModel> productImages) {
+        this.productImages = productImages;
     }
 }

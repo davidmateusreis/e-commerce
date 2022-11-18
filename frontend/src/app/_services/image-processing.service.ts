@@ -15,7 +15,7 @@ export class ImageProcessingService {
 
     const productImagesToFileHandle: FileHandle[] = [];
 
-    for (let i = 0; i < productImages?.length; i++) {
+    for (let i = 0; i < productImages.length; i++) {
       const imageFileData = productImages[i];
 
       const imageBlob = this.dataURIToBlob(imageFileData.picByte, imageFileData.type);
