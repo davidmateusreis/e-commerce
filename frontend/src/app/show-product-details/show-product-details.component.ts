@@ -16,7 +16,7 @@ import { ProductService } from '../_services/product.service';
 export class ShowProductDetailsComponent implements OnInit {
 
   productDetails: Product[] = [];
-  displayedColumns: string[] = ['productId', 'productName', 'productDescription', 'productDiscountedPrice', 'productActualPrice', 'images', 'edit', 'delete'];
+  displayedColumns: string[] = ['productId', 'productName', 'description', 'productDiscountedPrice', 'productActualPrice', 'actions'];
 
   constructor(
     private productService: ProductService,
