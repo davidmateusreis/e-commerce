@@ -6,6 +6,7 @@ import { BuyProductComponent } from './buy-product/buy-product.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { ProductViewDetailsComponent } from './product-view-details/product-view-details.component';
 import { ShowProductDetailsComponent } from './show-product-details/show-product-details.component';
 import { UserComponent } from './user/user.component';
@@ -22,7 +23,8 @@ const routes: Routes = [
   { path: 'addNewProduct', component: AddNewProductComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] }, resolve: { product: ProductResolveService } },
   { path: 'showProductDetails', component: ShowProductDetailsComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] } },
   { path: 'productViewDetails', component: ProductViewDetailsComponent, resolve: { product: ProductResolveService } },
-  { path: 'buyProduct', component: BuyProductComponent, canActivate: [AuthGuard], data: { roles: ['User'] }, resolve: { productDetails: BuyProductResolveService } }
+  { path: 'buyProduct', component: BuyProductComponent, canActivate: [AuthGuard], data: { roles: ['User'] }, resolve: { productDetails: BuyProductResolveService } },
+  { path: 'orderConfirm', component: OrderConfirmationComponent, canActivate: [AuthGuard], data: { roles: ['User'] } }
 ];
 
 @NgModule({
