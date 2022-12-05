@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { ProductViewDetailsComponent } from './product-view-details/product-view-details.component';
+import { RegisterComponent } from './register/register.component';
 import { ShowProductDetailsComponent } from './show-product-details/show-product-details.component';
 import { UserComponent } from './user/user.component';
 import { AuthGuard } from './_auth/auth.guard';
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'showProductDetails', component: ShowProductDetailsComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] } },
   { path: 'productViewDetails', component: ProductViewDetailsComponent, resolve: { product: ProductResolveService } },
   { path: 'buyProduct', component: BuyProductComponent, canActivate: [AuthGuard], data: { roles: ['User'] }, resolve: { productDetails: BuyProductResolveService } },
-  { path: 'orderConfirm', component: OrderConfirmationComponent, canActivate: [AuthGuard], data: { roles: ['User'] } }
+  { path: 'orderConfirm', component: OrderConfirmationComponent, canActivate: [AuthGuard], data: { roles: ['User'] } },
+  { path: 'register', component: RegisterComponent }
 ];
 
 @NgModule({
