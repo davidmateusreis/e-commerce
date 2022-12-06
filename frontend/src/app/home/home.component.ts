@@ -13,6 +13,10 @@ import { ProductService } from '../_services/product.service';
 })
 export class HomeComponent implements OnInit {
 
+  pageNumber: number = 0;
+
+  showLoadButton = false;
+
   productDetails: Product[] = [];
 
   constructor(
@@ -26,14 +30,19 @@ export class HomeComponent implements OnInit {
   }
 
   public getAllProducts() {
-    this.productService.getAllProducts()
+    this.productService.getAllProducts(this.pageNumber)
       .pipe(
         map((x: Product[], i) => x.map((product: Product) => this.imageProcessingService.createImages(product)))
       )
       .subscribe(
         (response: Product[]) => {
           console.log(response);
-          this.productDetails = response;
+          if (response.length == 4) {
+            this.showLoadButton = true;
+          } else {
+            this.showLoadButton = false;
+          }
+          response.forEach(p => this.productDetails.push(p));
         },
         (error: HttpErrorResponse) => {
           console.log(error);
@@ -43,6 +52,11 @@ export class HomeComponent implements OnInit {
 
   showProductDetails(productId: any) {
     this.router.navigate(['/productViewDetails', { productId: productId }]);
+  }
+
+  public loadMoreProduct() {
+    this.pageNumber = this.pageNumber + 1;
+    this.getAllProducts();
   }
 
 }
