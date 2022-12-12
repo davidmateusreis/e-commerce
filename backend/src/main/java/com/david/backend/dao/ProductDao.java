@@ -12,5 +12,9 @@ import com.david.backend.entity.Product;
 public interface ProductDao extends CrudRepository<Product, Integer> {
 
     List<Product> findAll(Pageable pageable);
-    
+
+    List<Product> findByProductNameContainingIgnoreCaseOrProductDescriptionContainingIgnoreCase(String key1,
+            String key2,
+            Pageable pageable);
+
 }
