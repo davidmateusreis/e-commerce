@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductService } from '../_services/product.service';
 
 @Component({
@@ -11,7 +12,10 @@ export class CartComponent implements OnInit {
   cartDetails: any = [];
   displayedColumns: string[] = ['productName', 'description', 'productDiscountedPrice', 'productActualPrice'];
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getCartDetails();
@@ -27,6 +31,12 @@ export class CartComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  checkout() {
+    this.router.navigate(['/buyProduct', {
+      isSingleProductCheckout: false, id: 0
+    }]);
   }
 
 }
