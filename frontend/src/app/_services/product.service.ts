@@ -30,8 +30,8 @@ export class ProductService {
     return this.httpClient.get<Product[]>("http://localhost:9090/getProductDetails/" + isSingleProductCheckout + "/" + productId);
   }
 
-  public placeOrder(orderDetails: OrderDetails) {
-    return this.httpClient.post("http://localhost:9090/placeOrder", orderDetails);
+  public placeOrder(orderDetails: OrderDetails, isSingleProductCheckout: string | null) {
+    return this.httpClient.post("http://localhost:9090/placeOrder/" + isSingleProductCheckout, orderDetails);
   }
 
   public addToCart(productId: number) {
