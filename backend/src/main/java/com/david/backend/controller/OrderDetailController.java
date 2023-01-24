@@ -1,12 +1,16 @@
 package com.david.backend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.david.backend.entity.OrderDetail;
 import com.david.backend.entity.OrderInput;
 import com.david.backend.service.OrderDetailService;
 
@@ -21,5 +25,11 @@ public class OrderDetailController {
     public void placeOrder(@PathVariable(name = "isSingleProductCheckout") boolean isSingleProductCheckout,
             @RequestBody OrderInput orderInput) {
         orderDetailService.placeOrder(orderInput, isSingleProductCheckout);
+    }
+
+    @PreAuthorize("hasRole('User')")
+    @GetMapping({ "/getOrderDetails" })
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetailService.getOrderDetails();
     }
 }
