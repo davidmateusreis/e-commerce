@@ -10,7 +10,7 @@ import { ProductService } from '../_services/product.service';
 export class CartComponent implements OnInit {
 
   cartDetails: any = [];
-  displayedColumns: string[] = ['productName', 'description', 'productDiscountedPrice', 'productActualPrice'];
+  displayedColumns: string[] = ['productName', 'description', 'productDiscountedPrice', 'productActualPrice', 'action'];
 
   constructor(
     private productService: ProductService,
@@ -37,6 +37,19 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/buyProduct', {
       isSingleProductCheckout: false, id: 0
     }]);
+  }
+
+  delete(cartId: any) {
+    console.log(cartId);
+    this.productService.deleteCartItem(cartId).subscribe(
+      (response) => {
+        console.log(response);
+        this.getCartDetails();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
 }
