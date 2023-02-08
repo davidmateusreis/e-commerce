@@ -11,6 +11,7 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { OrderConfirmationComponent } from './order-confirmation/order-confirmation.component';
 import { ProductViewDetailsComponent } from './product-view-details/product-view-details.component';
 import { RegisterComponent } from './register/register.component';
+import { ShowOrderDetailsComponent } from './show-order-details/show-order-details.component';
 import { ShowProductDetailsComponent } from './show-product-details/show-product-details.component';
 import { UserComponent } from './user/user.component';
 import { AuthGuard } from './_auth/auth.guard';
@@ -30,7 +31,8 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard], data: { roles: ['User'] } },
   { path: 'orderConfirm', component: OrderConfirmationComponent, canActivate: [AuthGuard], data: { roles: ['User'] } },
   { path: 'register', component: RegisterComponent },
-  { path: 'myOrders', component: MyOrdersComponent, canActivate: [AuthGuard], data: { roles: ['User'] } }
+  { path: 'myOrders', component: MyOrdersComponent, canActivate: [AuthGuard], data: { roles: ['User'] } },
+  { path: 'showOrderDetails', component: ShowOrderDetailsComponent, canActivate: [AuthGuard], data: { roles: ['Admin'] } }
 ];
 
 @NgModule({
