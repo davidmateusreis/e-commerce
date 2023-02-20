@@ -55,4 +55,8 @@ export class ProductService {
   public getAllOrderDetails(): Observable<OrderDetails[]> {
     return this.httpClient.get<OrderDetails[]>("http://localhost:9090/getAllOrderDetails");
   }
+
+  public markAsDelivered(orderId: any) {
+    return this.httpClient.get("http://localhost:9090/markOrderAsDelivered/" + orderId);
+  }
 }
