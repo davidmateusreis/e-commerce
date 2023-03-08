@@ -9,6 +9,7 @@ public class OrderInput {
     private String contactNumber;
     private String alternateContactNumber;
     private List<OrderProductQuantity> OrderProductQuantityList;
+    private String transactionId;
 
     public String getFullName() {
         return fullName;
@@ -48,5 +49,13 @@ public class OrderInput {
 
     public void setOrderProductQuantityList(List<OrderProductQuantity> orderProductQuantityList) {
         OrderProductQuantityList = orderProductQuantityList;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 }

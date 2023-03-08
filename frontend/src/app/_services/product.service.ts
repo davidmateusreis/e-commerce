@@ -59,4 +59,8 @@ export class ProductService {
   public markAsDelivered(orderId: any) {
     return this.httpClient.get("http://localhost:9090/markOrderAsDelivered/" + orderId);
   }
+
+  public createTransaction(amount: any) {
+    return this.httpClient.get("http://localhost:9090/createTransaction/" + amount);
+  }
 }

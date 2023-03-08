@@ -3,6 +3,7 @@ package com.david.backend.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +17,19 @@ import com.david.backend.entity.OrderDetail;
 import com.david.backend.entity.OrderInput;
 import com.david.backend.entity.OrderProductQuantity;
 import com.david.backend.entity.Product;
+import com.david.backend.entity.TransactionDetails;
 import com.david.backend.entity.User;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
 
 @Service
 public class OrderDetailService {
 
     private static final String ORDER_PLACED = "Placed";
+
+    private static final String KEY = "rzp_test_PrUTy6NRFT8SOl";
+    private static final String SECRET_KEY = "VjvcX22tDZ4WFQqTCvjCJuR8";
+    private static final String CURRENCY = "USD";
 
     @Autowired
     private OrderDetailDao orderDetailDao;
@@ -52,7 +60,8 @@ public class OrderDetailService {
                     ORDER_PLACED,
                     product.getProductDiscountedPrice() * o.getQuantity(),
                     product,
-                    user);
+                    user,
+                    orderInput.getTransactionId());
 
             if (!isSingleProductCheckout) {
                 List<Cart> carts = cartDao.findByUser(user);
@@ -91,5 +100,33 @@ public class OrderDetailService {
             orderDetail.setOrderStatus("Delivered");
             orderDetailDao.save(orderDetail);
         }
+    }
+
+    public TransactionDetails createTransaction(Double amount) {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("amount", (amount * 100));
+            jsonObject.put("currency", CURRENCY);
+
+            RazorpayClient razorpayClient = new RazorpayClient(KEY, SECRET_KEY);
+
+            Order order = razorpayClient.orders.create(jsonObject);
+
+            TransactionDetails transactionDetails = prepareTransactionDetails(order);
+            return transactionDetails;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    private TransactionDetails prepareTransactionDetails(Order order) {
+        String orderId = order.get("id");
+        String currency = order.get("currency");
+        Integer amount = order.get("amount");
+
+        TransactionDetails transactionDetails = new TransactionDetails(orderId, currency, amount, KEY);
+        return transactionDetails;
     }
 }
