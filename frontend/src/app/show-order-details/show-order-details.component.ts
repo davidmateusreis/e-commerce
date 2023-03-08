@@ -10,19 +10,21 @@ import { ProductService } from '../_services/product.service';
 export class ShowOrderDetailsComponent implements OnInit {
 
   displayedColumns = ['orderId', 'productName', 'orderFullName', 'orderFullOrder', 'orderContactNumber', 'orderAmount', 'orderStatus', 'action'];
-  OrderDetails: OrderDetails[] = [];
+  orderDetails: OrderDetails[] = [];
+
+  status: string = 'All';
 
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.getAllOrderDetails();
+    this.getAllOrderDetails(this.status);
   }
 
-  getAllOrderDetails() {
-    this.productService.getAllOrderDetails().subscribe(
+  getAllOrderDetails(status: string) {
+    this.productService.getAllOrderDetails(status).subscribe(
       (response: OrderDetails[]) => {
         console.log(response);
-        this.OrderDetails = response;
+        this.orderDetails = response;
       },
       (error) => {
         console.log(error);
@@ -34,7 +36,7 @@ export class ShowOrderDetailsComponent implements OnInit {
     console.log(orderId);
     this.productService.markAsDelivered(orderId).subscribe(
       (response) => {
-        this.getAllOrderDetails();
+        this.getAllOrderDetails(this.status);
         console.log(response);
       },
       (error) => {
