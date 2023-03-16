@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, NgZone, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 // import * as Razorpay from 'razorpay';
@@ -30,7 +30,8 @@ export class BuyProductComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private injector: Injector
   ) { }
 
   ngOnInit(): void {
@@ -52,7 +53,13 @@ export class BuyProductComponent implements OnInit {
       (response) => {
         console.log(response);
         orderForm.reset();
-        this.router.navigate(['/orderConfirm']);
+
+        const ngZone = this.injector.get(NgZone);
+        ngZone.run(
+          () => {
+            this.router.navigate(['/orderConfirm']);
+          }
+        );
       },
       (error) => {
         console.log(error);
